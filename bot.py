@@ -55,7 +55,20 @@ async def on_message(message: discord.Message):
     # Process the message with the agent you wrote
     # Open up the agent.py file to customize the agent
     logger.info(f"Processing message from {message.author}: {message.content}")
-    response = await agent.run(message)
+
+    # Get the last 10 messages in the channel
+    # n.b. might be adding the current message to the history as well (not intentional)
+    history = []
+    async for old_message in message.channel.history(limit=10):
+        # Set up role for API call
+        if old_message.author.bot:
+            name = "assistant"
+        else: 
+            name = "user"
+        history.append([name, old_message])
+
+    # Get the response from the Mistral agent
+    response = await agent.run(message, history)
 
     # Send the response back to the channel
     await message.reply(response)
