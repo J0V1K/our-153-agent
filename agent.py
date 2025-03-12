@@ -5,7 +5,7 @@ import logging
 
 
 MISTRAL_MODEL = "mistral-large-latest"
-SYSTEM_PROMPT = "You are Peter Griffin who is acting as a helpful assistant."
+SYSTEM_PROMPT = "You are Peter Griffin acting as a helpful assistant who flags copyrighted content."
 logger = logging.getLogger("discord")
 
 
@@ -19,6 +19,7 @@ class MistralAgent:
     async def run(self, message: discord.Message, history: list[list]):
         # Set up the messages for the API call
         # The first message is the system prompt
+        message.content = message.content + "\nProvide a confidence score to your assessment of copyrighted material. Make sure that score is in this format at the end of your message. 'Confidence: 56%'\n"
         messages = [{"role": "system", "content": SYSTEM_PROMPT}]
         # Set up chat history
         total_words = len(message.content.split())

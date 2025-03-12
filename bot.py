@@ -70,8 +70,17 @@ async def on_message(message: discord.Message):
     # Get the response from the Mistral agent
     response = await agent.run(message, history)
 
-    # Send the response back to the channel
-    await message.reply(response)
+    try: 
+        start_idx_score = response.rfind("Confidence: ")
+        end_idx_score = response.rfind("%")
+        score = response[start_idx_score + 12: end_idx_score]
+        logger.info(f"Got score: {score}")
+
+        # Send the response back to the channel
+        await message.reply(response)
+    except:
+        await message.reply(response)
+
 
 
 # Commands
