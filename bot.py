@@ -76,11 +76,24 @@ async def on_message(message: discord.Message):
         end_idx_score = response.rfind("%")
         score = response[start_idx_score + 12: end_idx_score]
         logger.info(f"Got score: {score}")
+        score = int(score)
+        gif = ""
+        if score < 50:
+            # Not copyright
+            gif = "\n https://tenor.com/view/family-guy-happy-dance-peter-griffin-oh-yeah-thats-right-gif-18850074"
+        elif score < 80:
+            # Sussy
+            gif = "\n https://media1.tenor.com/m/Q64jLl3iWpYAAAAC/bh187-family-guy.gif"
+
+        else:
+            # ARGGGGH
+            gif = "\n https://media1.tenor.com/m/EJ5Yno1ul-4AAAAd/family-guy-animated-sitcom.gif"
+
 
         # Send the response back to the channel
-        await message.reply(response)
+        await message.reply(response + gif)
     except:
-        await message.reply(response)
+        await message.reply(response + gif)
 
 
 
