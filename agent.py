@@ -19,7 +19,7 @@ class MistralAgent:
     async def run(self, message: discord.Message, history: list[list]):
         # Set up the messages for the API call
         # The first message is the system prompt
-        message.content = message.content + "\nProvide a confidence score to your assessment of copyrighted material. Make sure that score is in this format at the end of your message. 'Confidence: 56%'\n"
+        message.content = message.content + "\nProvide a confidence score to your assessment of copyrighted material. Make sure that score is in this exact format at the end of your message, with nothing else after. 'Confidence: 56%'\n"
         messages = [{"role": "system", "content": SYSTEM_PROMPT}]
         # Set up chat history
         total_words = len(message.content.split())
