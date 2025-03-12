@@ -38,6 +38,7 @@ async def on_ready():
     logger.info(f"{bot.user} has connected to Discord!")
 
 
+
 @bot.event
 async def on_message(message: discord.Message):
     """

@@ -23,7 +23,8 @@ class MistralAgent:
         messages = [{"role": "system", "content": SYSTEM_PROMPT}]
         # Set up chat history
         total_words = len(message.content.split())
-        for author_message_pair in history.reverse():
+        history.reverse()
+        for author_message_pair in history:
             history_message_word_count = len(author_message_pair[1].content.split())
             # check if we can fit this history message to prompt, if not skip rest of history
             if total_words + history_message_word_count > 1000:
